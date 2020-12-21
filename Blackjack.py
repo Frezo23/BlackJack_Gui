@@ -26,7 +26,7 @@ img3 = ImageTk.PhotoImage(Image.open('img2.png'))
 
 ### image cards
 
-img4 = ImageTk.PhotoImage(Image.open('kw1.png'))
+kw1 = ImageTk.PhotoImage(Image.open('kw1.png'))
 
 ### widgets
 
@@ -45,8 +45,8 @@ hitbtn.place(x=550,y=750)
 standbtn = tk.Button(root,bg='#d5d5d5',image=img3,border='0')
 standbtn.place(x=730,y=750)
 
-cardlbl = tk.Label(root,bg='#139415',image=img4,border='0')
-cardlbl.place(x=400,y=550)
+cardlbl1 = tk.Label(root,bg='#139415',image=kw1,border='0')
+cardlbl1.place(x=400,y=550)
 
 
 root.mainloop()
