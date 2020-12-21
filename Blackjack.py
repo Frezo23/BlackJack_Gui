@@ -8,12 +8,25 @@ import os
 from cryptography.fernet import Fernet
 import random
 import datetime
+from cards import *
 
 ### variables
 
-money = 25
-bet = 1500
+money = 2000
+bet = 0
 bet_take = 0
+round_ = False
+player_move = False
+
+player_sum = 0
+croupier_sum = 0
+
+player_cards = []
+croupier_cards = []
+
+color = 0
+number = 0
+
 
 betsh = str(bet) + '$'
 moneysh = str(money) + '$'
@@ -47,6 +60,8 @@ coins5 = ImageTk.PhotoImage(Image.open('coins5.png'))
 coins6 = ImageTk.PhotoImage(Image.open('coins6.png'))
 
 ### cards images
+
+hide = ImageTk.PhotoImage(Image.open('hide.png'))
 
 ### karo
 
@@ -135,19 +150,26 @@ def coinshow():
     elif bet >= 1501 :
         coinlbl.configure(image=coins6)
 
-def add():
-    global bet, money
+def start():
+    global money, bet, player_move, player_sum, croupier_sum, player_cards, croupier_cards, color, number
 
-    if bet <= money - 1:
+    ### croupier cards 
+
+    get_cards(color,number,croupier_sum)
+
+def add():
+    global bet, money, round_
+
+    if bet <= money - 1 and round_ != True:
         bet += 1
         betsh = str(bet) + '$'
         betlbl1.configure(text=betsh)
         bid_amount.configure(text=betsh)
         coinshow()
 def low():
-    global bet, money
+    global bet, money, round_
 
-    if bet - 1 >= 0:
+    if bet - 1 >= 0 and round_ != True:
         bet -= 1
         betsh = str(bet) + '$'
         betlbl1.configure(text=betsh)
@@ -155,15 +177,17 @@ def low():
         coinshow()
 
 def bid_cm():
-    global money, bet, bet_take
+    global money, bet, bet_take, round_
 
-    if bet <= money:
+    if bet <= money and round_ != True:
         bet_take = bet
         money -= bet
         moneysh = str(money) + '$'
         moneylbl1.configure(text=moneysh)
         bid_amount.configure(text=bet)
+        round_ = True
         coinshow()
+        start()
 
 
 ### widgets
